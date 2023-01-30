@@ -1,8 +1,7 @@
 package game;
 
 import java.util.ArrayList;
-
-//import java.util.Random;
+import java.util.Random;
 /**
  * 2048 Board
  * Methods to complete:
@@ -31,11 +30,9 @@ public class Board {
      **/
     public Board(int[][] board) {
         gameBoard = new int[board.length][board[0].length];
-        for (int r = 0; r < gameBoard.length; r++) {
-            for (int c = 0; c < gameBoard[r].length; c++) {
+        for (int r = 0; r < gameBoard.length; r++) 
+            for (int c = 0; c < gameBoard[r].length; c++) 
                 gameBoard[r][c] = board[r][c];
-            }
-        }
         openSpaces = new ArrayList<>();
     }
 
@@ -71,13 +68,9 @@ public class Board {
      * that openSpaces is up to date.
      **/
     public void addRandomTile() {
-        BoardSpot b = openSpaces.get(StdRandom.uniform(0, openSpaces.size()));
-        gameBoard[b.getRow()][b.getCol()] = StdRandom.uniform() < 0.1 ? 4 : 2;
-        /*
-         * Random ra = new Random(2022);
-         * double v2 = ra.nextDouble();
-         * BoardSpot b2 = openSpaces.get(ra.nextInt(openSpaces.size()));
-         */
+        Random r = new Random(2022);
+        BoardSpot b = openSpaces.get(r.nextInt(openSpaces.size()));
+        gameBoard[b.getRow()][b.getCol()] = r.nextDouble() < 0.1 ? 4 : 2;
     }
 
     /**
@@ -175,6 +168,7 @@ public class Board {
     public void makeMove(char letter) {
         switch (letter) {
             case 'U':
+                //In progress
                 break;
             case 'L':
                 swipeLeft();
@@ -182,6 +176,7 @@ public class Board {
                 swipeLeft();
                 break;
             case 'R':
+                //In progress
                 for (int i = 1; i <= 2; i++)
                     rotateBoard();
                 swipeLeft();
@@ -190,6 +185,7 @@ public class Board {
                 mergeLeft();
                 break;
             case 'D':
+                //In progress
                 break;
         }
     }
@@ -201,7 +197,7 @@ public class Board {
      * @return the status of the game -- lost or not lost
      **/
     public boolean isGameLost() {
-        return openSpaces.size() == 0;
+        return openSpaces.isEmpty();
     }
 
     /**
@@ -209,11 +205,9 @@ public class Board {
      **/
     public int showScore() {
         int score = 0;
-        for (int r = 0; r < gameBoard.length; r++) {
-            for (int c = 0; c < gameBoard[r].length; c++) {
+        for (int r = 0; r < gameBoard.length; r++) 
+            for (int c = 0; c < gameBoard[r].length; c++) 
                 score += gameBoard[r][c];
-            }
-        }
         return score;
     }
 
@@ -224,12 +218,11 @@ public class Board {
         for (int r = 0; r < gameBoard.length; r++) {
             for (int c = 0; c < gameBoard[r].length; c++) {
                 String g = Integer.toString(gameBoard[r][c]);
-                StdOut.print((g.equals("0")) ? "-" : g);
-                for (int o = 0; o < (5 - g.length()); o++) {
-                    StdOut.print(" ");
-                }
+                System.out.print((g.equals("0")) ? "-" : g);
+                for (int o = 0; o < 5 - g.length(); o++) 
+                    System.out.print(" ");
             }
-            StdOut.println();
+            System.out.println();
         }
     }
 
@@ -241,17 +234,14 @@ public class Board {
         for (int r = 0; r < gameBoard.length; r++) {
             for (int c = 0; c < gameBoard[r].length; c++) {
                 String g = Integer.toString(gameBoard[r][c]);
-                for (BoardSpot bs : getOpenSpaces()) {
-                    if (r == bs.getRow() && c == bs.getCol()) {
+                for (BoardSpot bs : getOpenSpaces()) 
+                    if (r == bs.getRow() && c == bs.getCol()) 
                         g = "**";
-                    }
-                }
-                StdOut.print((g.equals("0")) ? "-" : g);
-                for (int o = 0; o < (5 - g.length()); o++) {
-                    StdOut.print(" ");
-                }
+                System.out.print((g.equals("0")) ? "-" : g);
+                for (int o = 0; o < 5 - g.length(); o++) 
+                    System.out.print(" ");
             }
-            StdOut.println();
+            System.out.println();
         }
     }
 
@@ -260,10 +250,6 @@ public class Board {
      * 
      * @param seed the long seed value
      **/
-    public Board(long seed) {
-        StdRandom.setSeed(seed);
-        gameBoard = new int[4][4];
-    }
 
     /**
      * Gets the open board spaces.
