@@ -56,8 +56,6 @@ public class Board {
     /**
      * Adds a random tile to an open spot with a 90% chance of a 2 value and a 10%
      * chance of a 4 value.
-     * Requires separate uses of StdRandom.uniform() to find a random open space and
-     * determine probability of a 4 or 2 tile.
      * 
      * 1. Select a tile t by picking a random open space from openSpaces
      * 2. Pick a value v by picking a double from 0 to 1 (not inclusive of 1); < .1
@@ -168,7 +166,11 @@ public class Board {
     public void makeMove(char letter) {
         switch (letter) {
             case 'U':
-                //In progress
+                for (int i = 1; i <= 3; i++)
+                    rotateBoard();
+                swipeLeft();
+                mergeLeft();
+                swipeLeft();
                 break;
             case 'L':
                 swipeLeft();
@@ -176,16 +178,21 @@ public class Board {
                 swipeLeft();
                 break;
             case 'R':
-                //In progress
                 for (int i = 1; i <= 2; i++)
                     rotateBoard();
                 swipeLeft();
+                mergeLeft();
+                swipeLeft();
                 for (int i = 1; i <= 2; i++)
                     rotateBoard();
-                mergeLeft();
                 break;
             case 'D':
-                //In progress
+                rotateBoard();
+                swipeLeft();
+                mergeLeft();
+                swipeLeft();
+                for (int i = 1; i <= 3; i++)
+                    rotateBoard();
                 break;
         }
     }
