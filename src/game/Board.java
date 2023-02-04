@@ -171,6 +171,7 @@ public class Board {
                 swipeLeft();
                 mergeLeft();
                 swipeLeft();
+                rotateBoard();
                 break;
             case 'L':
                 swipeLeft();
